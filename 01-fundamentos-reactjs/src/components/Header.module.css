@@ -1,3 +1,7 @@
+/* O nome fica Header.MODULE.css para que ele seja atrelado somente ao 
+ escopo do arquivo Header.jsx*/
+/* usar SEMPRE sitações as CLASS, não usar ID, ou tag */
+
 .header {
   background: #333;
   height: 80px;
