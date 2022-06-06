@@ -3,6 +3,8 @@
 /* usar SEMPRE sitações as CLASS, não usar ID, ou tag */
 
 .header {
-  background: #333;
-  height: 80px;
+  background: var(--gray-800);
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem 0;
 }

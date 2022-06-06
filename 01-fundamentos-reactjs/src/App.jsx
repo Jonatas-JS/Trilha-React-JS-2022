@@ -2,7 +2,7 @@
 import { Header } from './components/Header'
 import {Post} from './Post'
 // importar o arquivo CSS com os atributos
-import './styles.css'
+import './global.css'
 
 export function App() {
   return (
