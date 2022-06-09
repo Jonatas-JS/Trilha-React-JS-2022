@@ -2,20 +2,23 @@ import { Avatar } from './Avatar'
 import { Comment } from './Comment'
 
 import styles from './Post.module.css'
-export function Post(props) {
+// author => busque no props[] a propriedade author, e assim posso acessar o que estiver dentro dele sem precisar colocar props.author.name...
+export function Post({ author, publisheAt }) {
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src="https://github.com/Jonatas-JS.png" />
+          <Avatar src={author.avatarUrl} />
           
           <div className={styles.authorInfo}>
-            <strong>Jônatas Fernandes</strong>
-            <span>Web Developer</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
-        <time title="11 de Maio às 08:13" dateTime="2022-05-11 08:13:30">Publicado há 1h</time>
+        <time title="11 de Maio às 08:13" dateTime="2022-05-11 08:13:30">
+          {publisheAt.toString()}
+        </time>
       </header>
 
       <div className={styles.content}>
