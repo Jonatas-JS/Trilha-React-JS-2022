@@ -2,13 +2,22 @@
 import { format, formatDistanceToNow } from 'date-fns'
 // especifico que usarei os padrões pt-BR
 import ptBR from 'date-fns/esm/locale/pt-BR/index.js'
+import { useState } from 'react'
 
 import { Avatar } from './Avatar'
 import { Comment } from './Comment'
 
+
 import styles from './Post.module.css'
+
 // author => busque no props[] a propriedade author, e assim posso acessar o que estiver dentro dele sem precisar colocar props.author.name...
 export function Post({ author, publisheAt, content }) {
+  // useState() retorna duas posições, um Array numérico, e, recebe uma function para alterar o valor da variável de comentários
+  const [comments, setComments] = useState([
+    1,
+    2,
+  ])
+
   // (onde está a data á ser tratada, "formatoDia 'string qualquer' formatoMês 'string qualquer' formatoHora:formatoMinuto'string qualquer'" )
   const publishedDateFormatted = format(publisheAt, "d 'de' LLLL 'às' HH:mm'h'", {
     locale: ptBR, // ptBR que foi definido no início
@@ -18,6 +27,12 @@ export function Post({ author, publisheAt, content }) {
     locale: ptBR, // linguagem em português-brasil
     addSuffix: true, // acresenta o "há" cerca de 1h
   })
+
+  function handleCreateNewComment() {
+    // o comportamento padrão do onSubmit() é redirecionar para outro página, o event.preventDefault() evita isso
+    event.preventDefault()
+    setComments([...comments, comments.length+1])
+  }
 
   return (
     <article className={styles.post}>
@@ -47,7 +62,7 @@ export function Post({ author, publisheAt, content }) {
         })}
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
 
         <textarea placeholder="Deixe seu comentário"
@@ -59,9 +74,13 @@ export function Post({ author, publisheAt, content }) {
       </form>
 
       <div className={styles.commentList}>
-       <Comment />
-       <Comment />
-       <Comment />
+        {/* percorra o Array comments, e, para cada comentário => return um comentário já definido no <Comment/> */}
+        {/* {comments.map(comment => {
+              return <Comment />
+            })} */}
+       {comments.map(comment => {
+        return <Comment />
+       })}
       </div>
     </article>
   )
