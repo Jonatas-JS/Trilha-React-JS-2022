@@ -14,8 +14,7 @@ import styles from './Post.module.css'
 export function Post({ author, publisheAt, content }) {
   // useState() retorna duas posições, um Array numérico, e, recebe uma function para alterar o valor da variável de comentários
   const [comments, setComments] = useState([
-    1,
-    2,
+    'Post muito bacana, hein?!'
   ])
 
   // (onde está a data á ser tratada, "formatoDia 'string qualquer' formatoMês 'string qualquer' formatoHora:formatoMinuto'string qualquer'" )
@@ -31,7 +30,12 @@ export function Post({ author, publisheAt, content }) {
   function handleCreateNewComment() {
     // o comportamento padrão do onSubmit() é redirecionar para outro página, o event.preventDefault() evita isso
     event.preventDefault()
-    setComments([...comments, comments.length+1])
+
+    const newCommentText = event.target.comment.value
+
+    setComments([...comments, newCommentText])
+
+    event.target.comment.value = ''
   }
 
   return (
@@ -65,7 +69,9 @@ export function Post({ author, publisheAt, content }) {
       <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
 
-        <textarea placeholder="Deixe seu comentário"
+        <textarea 
+        name="comment"
+        placeholder="Deixe seu comentário"
         />
 
         <footer>
@@ -79,7 +85,7 @@ export function Post({ author, publisheAt, content }) {
               return <Comment />
             })} */}
        {comments.map(comment => {
-        return <Comment />
+        return <Comment content={comment} />
        })}
       </div>
     </article>
