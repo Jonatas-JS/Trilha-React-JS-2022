@@ -17,6 +17,8 @@ export function Post({ author, publisheAt, content }) {
     'Post muito bacana, hein?!'
   ])
 
+  const [newCommentText, setNewCommentText] = useState('')
+
   // (onde está a data á ser tratada, "formatoDia 'string qualquer' formatoMês 'string qualquer' formatoHora:formatoMinuto'string qualquer'" )
   const publishedDateFormatted = format(publisheAt, "d 'de' LLLL 'às' HH:mm'h'", {
     locale: ptBR, // ptBR que foi definido no início
@@ -30,12 +32,13 @@ export function Post({ author, publisheAt, content }) {
   function handleCreateNewComment() {
     // o comportamento padrão do onSubmit() é redirecionar para outro página, o event.preventDefault() evita isso
     event.preventDefault()
-
-    const newCommentText = event.target.comment.value
-
+    // const newCommentText = event.target.comment.value
     setComments([...comments, newCommentText])
-
-    event.target.comment.value = ''
+    setNewCommentText('')
+  }
+ 
+  function handleNewCommentChange() {
+    setNewCommentText(event.target.value)
   }
 
   return (
@@ -59,9 +62,9 @@ export function Post({ author, publisheAt, content }) {
       <div className={styles.content}>
         {content.map(line => {
           if (line.type === 'paragraph') {
-            return <p>{line.content}</p>
+            return <p key={1}>{line.content}</p>
           } else if (line.type === 'link') {
-            return <p><a href="#">{line.content}</a></p>
+            return <p key={2}><a href="#">{line.content}</a></p>
           }
         })}
       </div>
@@ -72,6 +75,8 @@ export function Post({ author, publisheAt, content }) {
         <textarea 
         name="comment"
         placeholder="Deixe seu comentário"
+        value={newCommentText}
+        onChange={handleNewCommentChange}
         />
 
         <footer>
