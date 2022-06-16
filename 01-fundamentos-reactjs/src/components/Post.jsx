@@ -85,10 +85,7 @@ export function Post({ author, publisheAt, content }) {
       </form>
 
       <div className={styles.commentList}>
-        {/* percorra o Array comments, e, para cada comentário => return um comentário já definido no <Comment/> */}
-        {/* {comments.map(comment => {
-              return <Comment />
-            })} */}
+        {/* percorra o Array comments, e, para cada comentário => return um comentário <Comment/> */}
        {comments.map(comment => {
         return <Comment key={comment} content={comment} />
        })}
